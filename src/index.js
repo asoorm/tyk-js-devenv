@@ -1,26 +1,29 @@
-myVirtualHandler(mocks.req, mocks.sess, mocks.config);
+import { webpackProd } from "./plugins";
 
-function myVirtualHandler(request, session, config) {
-    log("Virtual Test running");
-
-    log("Request Body: " + JSON.stringify(request.Body));
-    log("Session: " + JSON.stringify(session));
-    log("Config: " + JSON.stringify(config));
-    log("param-1: " + request.Params["param1"]);
-
-    log("b64Enc: foo " + b64enc("foo"));
-    log("b64dec: Zm9v " + b64dec("Zm9v"));
-
-    var resBody = { "foo": "bar" };
-
-    var responseObject = {
-        Body: JSON.stringify(resBody),
-        Headers: {
-            "test": "virtual",
-            "test-2": "virtual"
+const mocks = {
+    req: {
+        Method: "POST",
+        Body: JSON.stringify({ "foo": "bar" }),
+        Headers: {},
+        Domain: "http://foo.com",
+        Resource: "/event/quotas",
+        FormData: { "field": "value" },
+        Params: {
+            param1: "foo"
         },
-        Code: 200
-    };
+    },
+    sess: {
+        meta_data: {},
+    },
+    config: {},
+};
 
-    return TykJsResponse(responseObject, session.meta_data);
-}
+console.warn("foobar");
+
+console.warn("process: " + JSON.stringify(process));
+
+process.argv.forEach((val, index) => {
+    console.log(`${index}: ${val}`);
+});
+
+webpackProd(mocks.req, mocks.sess, mocks.config);
