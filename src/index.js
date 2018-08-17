@@ -1,6 +1,3 @@
-import mocks from './mocks';
-import { log, rawLog, b64enc, b64dec, TykJsResponse, TykMakeHttpRequest } from './stubs';
-
 myVirtualHandler(mocks.req, mocks.sess, mocks.config);
 
 function myVirtualHandler(request, session, config) {
